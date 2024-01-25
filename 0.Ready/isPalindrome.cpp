@@ -1,48 +1,15 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
-class IdkHowToNameIt {
+class Solution {
 public:
-    std::vector<int> merge_sorted(std::vector<int>& vec1, std::vector<int>& vec2 ){
-        std::vector<int> result;
+    bool isPalindrome(std::string s) {
         int p1 = 0;
-        int p2 = 0;
-        while(p1 < vec1.size() || p2 < vec2.size()) {
-            if(p1 == vec1.size()) {
-                result.push_back(vec2[p2]);
-                p2++;
-            }
-            else if(p2 == vec2.size()) {
-                result.push_back(vec1[p1]);
-                p1++;
-            }
-            else if(vec1[p1] <= vec2[p2]) {
-                result.push_back(vec1[p1]);
-                p1++;
-            }
-            else {
-                result.push_back(vec2[p2]);
-                p2++;
-            }
+        int p2 = s.size() - 1;
+        while (p1 < p2) {
+            if(!isalnum(s[p1])){p1++; continue;}
+            if(!isalnum(s[p2])){p2--; continue;}
+            if(tolower(s[p1])!=tolower(s[p2]))return false;
+            p1++;
+            p2--;
         }
-        return result;
-    }
-    void printVector(const std::vector<int>& vec) {
-        for(int i : vec) {
-            std::cout << i << " ";
-        }
-        std::cout << std::endl;
+        return true;
     }
 };
-
-int main() {
-    IdkHowToNameIt finger;
-
-    std::vector<int> vec51 = {1, 5, 2, 7, 2, 9, 19};
-    std::vector<int> vec10 = {5, 7, 14, 8, 1, 2, 19};
-    std::sort(vec51.begin(), vec51.end());
-    std::sort(vec10.begin(), vec10.end());
-
-    finger.printVector(finger.merge_sorted(vec10, vec51));
-}
